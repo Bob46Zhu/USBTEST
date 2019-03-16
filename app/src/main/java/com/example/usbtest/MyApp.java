@@ -1,4 +1,6 @@
 package com.example.usbtest;
 
-public class MyApp {
+import android.app.Application;
+
+public class MyApp extends Application {
 }

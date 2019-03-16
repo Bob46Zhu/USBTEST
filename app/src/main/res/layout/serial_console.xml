@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/demoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="app_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
+
+    <view
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+
+    <CheckBox
+        android:id="@+id/checkBoxDTR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textBtnDTR"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxRTS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testBtnRTS"
+        />
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"
+        />
+
+    <ScrollView
+        android:id="@+id/consoleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </ScrollView>
+
+</LinearLayout>

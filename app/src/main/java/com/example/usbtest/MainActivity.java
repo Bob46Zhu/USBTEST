@@ -3,7 +3,9 @@ package com.example.usbtest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +13,23 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+
+    private UsbEndpoint usbEndpointIn;
+    private UsbEndpoint usbEndpointOut;
+
+    private UsbManager usbManager;
+    private TextView textView;
+    private TextView seekBarValue;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
         //查找所有插入的设备
         //List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
         //Map<String,usbDrivce> usbList = usbManager.getDeviceList();
-
-
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.hardware.usb.action.USB_DEVICE_ATTACHED");
+        USBReceiver usbReceiver = new USBReceiver();
+        registerReceiver(usbReceiver,intentFilter);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -57,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public class USBReceiver extends BroadcastReceiver{
 
-        public static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+        public static final String ACTION_USB_PERMISSION = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -71,10 +86,11 @@ public class MainActivity extends AppCompatActivity {
                     if(device != null)
                     {
                         if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED,false)){
-                            Log.e("USBReceiver","获取权限成功:"+device.getDeviceName());
+                            Toast.makeText(MainActivity.this,"获取权限成功:"+device.getDeviceName(),Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
+                            Toast.makeText(MainActivity.this,"获取权限失败:"+ device.getDeviceName(),Toast.LENGTH_SHORT).show();
                             Log.e("USBReceiver","获取权限失败:"+ device.getDeviceName());
                         }
                     }
