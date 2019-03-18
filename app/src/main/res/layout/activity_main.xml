@@ -27,6 +27,15 @@
         app:layout_constraintTop_toBottomOf="@+id/message"
         />
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/Btn1"
+        android:textSize="50dp"
+        />
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
